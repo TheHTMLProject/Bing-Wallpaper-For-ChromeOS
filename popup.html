@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bing Wallpaper for ChromeOS</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="title">Bing Wallpaper for ChromeOS</div>
+      <div class="date" id="dateLabel">-</div>
+    </header>
+
+    <div class="preview" id="preview">
+      <div class="overlay" id="previewOverlay">Loading...</div>
+      <img id="previewImg" alt="Bing daily wallpaper preview" />
+    </div>
+
+    <div class="meta">
+      <div class="subtitle" id="title">Daily image</div>
+      <a id="sourceLink" href="https://www.bing.com" target="_blank" rel="noreferrer noopener">Source link</a>
+    </div>
+
+    <div class="controls">
+      <button id="btn-prev" aria-label="Previous day" class="icon-btn nav">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+        </svg>
+        <span>Previous</span>
+      </button>
+      <button id="btn-refresh" aria-label="Refresh wallpaper" class="ghost icon-btn tiny">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 6h-2.08A6 6 0 1 1 12 6c1.3 0 2.53.42 3.53 1.2L13 10h7V3z"></path>
+        </svg>
+      </button>
+      <button id="btn-next" aria-label="Next day" class="icon-btn nav">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="m10 6-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z"></path>
+        </svg>
+        <span>Next</span>
+      </button>
+    </div>
+
+    <div class="status hidden" id="status"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
