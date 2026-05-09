@@ -37,6 +37,7 @@ body {
 }
 
 .wrapper {
+  position: relative;
   width: 360px;
   padding: 14px 14px 16px;
   background: var(--panel);
@@ -209,4 +210,25 @@ button[disabled] {
   transform: none;
   box-shadow: none;
   border-color: var(--border);
+}
+
+.github-link {
+  position: absolute;
+  bottom: 8px;
+  left: 14px;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: opacity 120ms ease, color 120ms ease;
+  display: flex;
+}
+
+.github-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.github-link svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
 }
