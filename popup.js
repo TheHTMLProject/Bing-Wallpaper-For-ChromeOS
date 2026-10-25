@@ -10,6 +10,8 @@ const buttons = {
   refresh: document.getElementById('btn-refresh')
 };
 const previewImg = document.getElementById('previewImg');
+const notificationsEnabled = document.getElementById('notificationsEnabled');
+const notificationButtonLabel = notificationsEnabled.querySelector('span');
 
 const MIN_IDX = 0;
 const MAX_IDX = 2;
@@ -28,6 +30,12 @@ function setStatus(text, isError = false) {
   statusEl.textContent = text;
   statusEl.classList.toggle('error', isError);
   statusEl.classList.toggle('hidden', !text);
+}
+
+function updateNotificationButton(enabled) {
+  notificationsEnabled.setAttribute('aria-pressed', String(enabled));
+  notificationsEnabled.setAttribute('aria-label', enabled ? 'Turn notifications off' : 'Turn notifications on');
+  notificationButtonLabel.textContent = enabled ? 'Turn notifications off' : 'Turn notifications on';
 }
 
 function updateUI(info) {
@@ -86,12 +94,28 @@ function wireButtons() {
     apply(nextIdx);
   });
   buttons.refresh.addEventListener('click', () => apply(currentIdx));
+  notificationsEnabled.addEventListener('click', async () => {
+    const enabled = notificationsEnabled.getAttribute('aria-pressed') !== 'true';
+    try {
+      const response = await chrome.runtime.sendMessage({
+        type: 'setNotifications',
+        enabled
+      });
+      if (!response?.success) throw new Error(response?.error || 'Unable to save notification preference');
+      updateNotificationButton(enabled);
+    } catch (err) {
+      setStatus(err.message, true);
+    }
+  });
 }
 
 async function init() {
   wireButtons();
 
   try {
+    const settings = await chrome.runtime.sendMessage({ type: 'getSettings' });
+    updateNotificationButton(settings?.settings?.notificationsEnabled !== false);
+
     const last = await chrome.runtime.sendMessage({ type: 'getLast' });
     if (last?.info) {
       currentIdx = last.info.idx ?? 0;

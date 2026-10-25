@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Mozilla Text';
+  src: url('fonts/mozilla-text-latin-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --bg: #f9fafb;
   --panel: #ffffff;
@@ -32,7 +40,7 @@ body {
   margin: 0;
   padding: 0;
   background: var(--bg);
-  font-family: 'Manrope', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Mozilla Text', 'Mozilla Headline', system-ui, sans-serif;
   color: var(--text);
 }
 
@@ -212,17 +220,29 @@ button[disabled] {
   border-color: var(--border);
 }
 
-.github-link {
+.footer-actions {
   position: absolute;
   bottom: 8px;
   left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.github-link,
+.notification-button {
   color: var(--muted);
   opacity: 0.4;
-  transition: opacity 120ms ease, color 120ms ease;
   display: flex;
 }
 
-.github-link:hover {
+.github-link {
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.github-link:hover,
+.notification-button:hover {
   opacity: 1;
   color: var(--accent);
 }
@@ -231,4 +251,32 @@ button[disabled] {
   width: 14px;
   height: 14px;
   fill: currentColor;
+}
+
+.notification-button {
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.notification-button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.notification-button svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.notification-button[aria-pressed="true"] .notification-off-mark {
+  display: none;
 }
